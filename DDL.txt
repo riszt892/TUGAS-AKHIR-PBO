@@ -1,0 +1,42 @@
+create database cigar_in
+
+drop table counter_record
+
+create table counter_record(
+	id_record serial not null,
+	record_transaksi int not null,
+	PRIMARY key(id_record)
+);
+insert into counter_record (record_transaksi) values (1)
+create table kemasan(
+	id_kemasan serial not null,
+	ukuran varchar(15) not null,
+	jumlah_cigar int,
+	primary key(id_kemasan)
+);
+
+insert into kemasan (ukuran,jumlah_cigar) values ('kecil',3),('sedang',5),('besar',9)
+select * from kemasan
+create table produk(
+	id_produk serial not null,
+	nama varchar(30) not null,
+	id_kemasan int not null,
+	harga int not null,
+	stok int not null,
+	status varchar(15),
+	primary key(id_produk),
+	constraint id_kemasan foreign key(id_kemasan) references kemasan(id_kemasan)
+	
+);
+
+create table transaksi(
+	id_transaksi serial not null,
+	id_produk int not null,
+	jumlah int not null,
+	record_transaksi int,
+	primary key(id_transaksi),
+	constraint id_produk foreign key(id_produk) references produk(id_produk)	
+);
+
+
+
